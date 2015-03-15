@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvcSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
-    def configure(HttpSecurity http) {
+    void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .anyRequest().fullyAuthenticated()
@@ -23,13 +23,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     @Configuration
-    static class AuthenticationConfiguration {
+    static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
         @Override
-        def init(AuthenticationManagerBuilder auth) throws Exception {
+        void init(AuthenticationManagerBuilder auth) throws Exception {
             auth.ldapAuthentication()
                     .userDnPatterns("uid={0},ou=otherpeople")
                     .groupSearchBase("ou=groups")
                     .contextSource().ldif("classpath:test-server.ldif")
         }
+
     }
 }
