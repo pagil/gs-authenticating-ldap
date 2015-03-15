@@ -11,26 +11,25 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvcSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    def configure(HttpSecurity http) {
         http.authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
-            .formLogin();
+            .formLogin()
         
     }
     
     @Configuration
-    protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+    static class AuthenticationConfiguration {
         @Override
-        public void init(AuthenticationManagerBuilder auth) throws Exception {
+        def init(AuthenticationManagerBuilder auth) throws Exception {
             auth.ldapAuthentication()
                     .userDnPatterns("uid={0},ou=otherpeople")
                     .groupSearchBase("ou=groups")
-                    .contextSource().ldif("classpath:test-server.ldif");
+                    .contextSource().ldif("classpath:test-server.ldif")
         }
-        
     }
 }

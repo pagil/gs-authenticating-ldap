@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HomeController {
+class HomeController {
     
     @RequestMapping("/")
-    public String index() {
-        return "Welcome to the hoe page!";
+    def index() {
+        "Welcome to the hoe page!"
     }
 }
