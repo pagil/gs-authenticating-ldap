@@ -10,12 +10,11 @@ class LdapConfig {
 
     @Bean
     LdapContextSource ldapCtxSrc() {
-        LdapContextSource ctxSrc = new LdapContextSource()
-        ctxSrc.url = "ldap://127.0.0.1:18880"
-        ctxSrc.base = "dc=jayway,dc=se"
-        ctxSrc.userDn = "uid=admin,ou=system"
-        ctxSrc.password = "secret"
-        ctxSrc
+        new LdapContextSource(
+        url: "ldap://127.0.0.1:18880",
+        base: "dc=jayway,dc=se",
+        userDn: "uid=admin,ou=system",
+        password:  "secret")
     }
 
     @Bean

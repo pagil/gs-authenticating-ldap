@@ -11,14 +11,8 @@ import javax.naming.ldap.LdapName;
 @RestController
 class HomeController {
 
-    @Autowired
-    LdapTemplate ldapTemplate
-
     @RequestMapping("/")
     def index() {
-        println ldapTemplate
-        def dirContext = ldapTemplate.lookup(new LdapName(""))
-        println dirContext
-        "Welcome to the hoe page!"
+        "Welcome to the home page!"
     }
 }
